@@ -25,7 +25,8 @@ public class VetorDinamico{
 
     public void adicionar (int elemento){
         if (estaCheio())
-            aumentarCapacidade();
+//            aumentarCapacidade();
+            this.redimencionar(2);
         this.elementos[this.qtde] = elemento;
         this.qtde++;
         // if(!estaCheio()){
@@ -38,7 +39,8 @@ public class VetorDinamico{
         if (!estaVazio()){
             this.qtde--;
             if (this.cap > 4 && this.qtde <= this.cap / 4){
-                this.reduzirCapacidade();
+//                this.reduzirCapacidade();
+                this.redimencionar(0.5);
             }
         }
     }
@@ -47,7 +49,7 @@ public class VetorDinamico{
         //1. Alocar um vetor novo com o dobro da capacidade
         int [] aux = new int[this.cap * 2];
         //2. Copiar todos os elementos existentes para o vetor novo
-        for (int i = 0; i < this.cap; i++){
+        for (int i = 0; i < this.qtde; i++){
             aux[i] = this.elementos[i];
         }
         //3. Passar a utilizar o vetor novo, descartando o antigo
@@ -77,6 +79,14 @@ public class VetorDinamico{
         this.cap /= 2;
     }
 
+    private void redimencionar(double fatorMultiplicacao){
+        int []aux = new int [(int)(this.cap * fatorMultiplicacao)];
+        for(int i = 0; i < this.qtde; i++){
+            aux[i] = this.elementos[i];
+        }
+        this.elementos = aux;
+        this.cap = (int)(this.cap * fatorMultiplicacao);
+    }
 
 
     public void exibir (){
